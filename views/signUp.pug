@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    if errors
+        h3= message
+        ul  
+            for error in errors 
+              li= error.msg
+        hr
+    .signupPage
+        .searchForm_wrapper
+            div(id="search_nav" )
+                form(action="" method="POST" class="homePageSearch")
+                    .form_input
+                        label(for="email") Email:
+                        input(type="text" name="email" required) 
+                    .form_input
+                        label(for="password") Password:
+                        input(type="password" name="password" required)
+                    .form_input
+                        label(for="confirm_password") Confirm Password:
+                        input(type="password" name="confirm_password" required)
+
+                    .form_input
+                        button(type="submit") Sign Up!

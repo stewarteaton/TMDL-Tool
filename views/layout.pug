@@ -1,0 +1,81 @@
+doctype html
+html
+  head
+    title= title
+    //- Line below is necessary for mobile resizing
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png")
+    link(rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png")
+    link(rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-icon-72x72.png")
+    link(rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-icon-76x76.png")
+    link(rel="apple-touch-icon" sizes="114x114" href="/images/favicon/apple-icon-114x114.png")
+    link(rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-icon-120x120.png")
+    link(rel="apple-touch-icon" sizes="144x144" href="/images/favicon/apple-icon-144x144.png")
+    link(rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-icon-152x152.png")
+    link(rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-icon-180x180.png")
+    link(rel="icon" type="image/png" sizes="192x192"  href="/images/favicon/android-icon-192x192.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png")
+    //- font awesome
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" )
+
+    link(rel="manifest" href="/images/favicon/manifest.json")
+    meta(name="msapplication-TileColor" content="#ffffff")
+    meta(name="msapplication-TileImage" content="/ms-icon-144x144.png")
+    meta(name="theme-color" content="#ffffff")
+  body
+    header
+      .layout_top
+
+          - const values = Object.values(flash)
+          - const keys = Object.keys(flash)
+          if keys.length > 0
+            div(class=`message message_${keys}`)
+              span= values
+              span.close_btn(onclick="this.parentNode.remove()") &times;
+
+          nav(role="navigation")
+            div(id="menuToggle")
+              input(type="checkbox")
+              span
+              span
+              span
+
+              ul(id="menu")
+                a(href="/")
+                  li Home
+                a(href="https://opcgis.deq.state.ms.us/tmdltool/" target="_blank")
+                  li TMDL GIS Tool
+                a(href="/login")
+                  li Admin Login
+                a(href="/admin/admin-page")
+                  li Admin Page
+                a(href="https://res.cloudinary.com/dmgp6exro/image/upload/v1563293775/tmdls/Off_Ramp_Code_ORC_-_List.pdf" target="_blank")
+                  li Off Ramp Codes 
+                a(href="https://en.wikipedia.org/wiki/Total_maximum_daily_load" target="_blank")
+                  li What is a TMDL?
+            .userLog
+              if user 
+                a(href="/logout") Logout (#{user.email})
+      .mdeq_logo
+        a(href="/")
+          img(src="/images/mdeq.svg" id="mdeqLogo") 
+        h3= title
+
+
+
+      block content
+
+      footer
+        .footer_div
+          h5 Developed By: Stewart Eaton
+        .footer_links
+          a.footer_icon(href="https://www.instagram.com/mississippideq/?hl=en" target="_blank")
+            i.fab.fa-instagram
+          a.footer_icon(href="https://www.facebook.com/mdeq.ms/" target="_blank")
+            i.fab.fa-facebook-square
+          a.footer_icon(href="https://twitter.com/MDEQ" target="_blank")
+            i.fab.fa-twitter-square

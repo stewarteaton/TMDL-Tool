@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    .loginPage
+        .searchForm_wrapper
+            div(id="search_nav" )
+                form(action="" method="POST" class="homePageSearch")
+                    .form_input
+                        label(for="email") Email:
+                        input(type="text" name="email" reqired) 
+                    .form_input
+                        label(for="password") Password:
+                        input(type="password" name="password" required)
+
+                    .form_input
+                        button(type="submit") Login! 

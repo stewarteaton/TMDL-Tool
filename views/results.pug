@@ -1,0 +1,102 @@
+extends layout
+include mixins/_search_form 
+
+block content
+  .showForm
+    +searchForm(pollutants)
+  
+  .results_wrapper
+
+    .column_info
+      .tmdl_info
+        h5 Basin
+      .tmdl_info
+        h5 Water Body Name
+      .tmdl_info
+        h5 Water Body ID
+      .tmdl_info
+        h5 County
+      .showUSGS
+        .tmdl_info
+          h5 USGS HUC   
+      .tmdl_info
+        h5 Impaired Use  
+      .tmdl_info
+        h5 Pollutant  
+      .showORC
+        .tmdl_info
+          h5 ORC      
+      .tmdl_info
+        h5 Category
+      .showDate
+        .tmdl_info
+          h5 Approval Date
+      .tmdl_info
+        h5 Report ID    
+      .tmdl_info
+        h5 PDF                                                 
+    each tmdl in searchData
+      if url.startsWith('/admin/edit-remove')
+        a(href=`/admin/edit-remove/${tmdl._id}`)
+          .tmdl_wrapper
+            .tmdl_info
+              p= tmdl.Basin
+            .tmdl_info                
+              p= tmdl.Water_Body_Name
+            .tmdl_info                
+              p= tmdl.Water_Body_ID
+            .tmdl_info
+              p= tmdl.County
+            .showUSGS
+              .tmdl_info
+                p= tmdl.USGS_HUC
+            .tmdl_info
+              p= tmdl.Impaired_Use
+            .tmdl_info
+              p= tmdl.Pollutant
+            .showORC
+              .tmdl_info
+                p= tmdl.ORC
+            .tmdl_info
+              p= tmdl.Category
+            .showDate
+              .tmdl_info
+                p= tmdl.EPA_Approval_Date
+            .tmdl_info
+              p= tmdl.Report_ID_NTTS
+            .tmdl_info
+              if(tmdl.PDF_Link)
+                  a(href=`${tmdl.PDF_Link}` target="_blank")
+                    button(type="button" class="button_small") view pdf   
+      else if url.startsWith('/')
+        .tmdl_wrapper
+          .tmdl_info
+            p= tmdl.Basin
+          .tmdl_info                
+            p= tmdl.Water_Body_Name
+          .tmdl_info                
+            p= tmdl.Water_Body_ID
+          .tmdl_info
+            p= tmdl.County
+          .showUSGS
+            .tmdl_info
+              p= tmdl.USGS_HUC
+          .tmdl_info
+            p= tmdl.Impaired_Use
+          .tmdl_info
+            p= tmdl.Pollutant
+          .showORC
+            .tmdl_info
+              p= tmdl.ORC
+          .tmdl_info
+            p= tmdl.Category
+          .showDate
+            .tmdl_info
+              p= tmdl.EPA_Approval_Date
+          .tmdl_info
+            p= tmdl.Report_ID_NTTS
+          .tmdl_info
+            if(tmdl.PDF_Link)
+                a(href=`${tmdl.PDF_Link}` target="_blank")
+                  button(type="button" class="button_small") view pdf   
+

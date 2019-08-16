@@ -1,0 +1,99 @@
+mixin tmdlForm(pollutant, tmdl)
+
+    .searchForm_wrapper
+        div(id='search_nav')
+            form(action="" method="POST" enctype="multipart/form-data" class="homePageSearch")
+                .form_input 
+                    label(for="Basin") Basin:
+                    select(name="Basin")
+                        option(value="BIG BLACK RIVER", selected= tmdl.Basin == "BIG BLACK RIVER") BIG BLACK RIVER
+                        option(value="COASTAL STREAMS", selected= tmdl.Basin == "COASTAL STREAMS") COASTAL STREAMS
+                        option(value="LOWER MISSISSIPPI RIVER", selected= tmdl.Basin == "LOWER MISSISSIPPI RIVER") LOWER MISSISSIPPI RIVER
+                        option(value="NORTH INDEPENDENT STREAMS", selected= tmdl.Basin == "NORTH INDEPENDENT STREAMS") NORTH INDEPENDENT STREAMS
+                        option(value="PASCAGOULA RIVER", selected= tmdl.Basin == "PASCAGOULA RIVER") PASCAGOULA RIVER
+                        option(value="PEARL RIVER", selected= tmdl.Basin == "PEARL RIVER") PEARL RIVER
+                        option(value="SOUTH INDEPENDENT STREAMS", selected= tmdl.Basin == "SOUTH INDEPENDENT STREAMS") SOUTH INDEPENDENT STREAMS
+                        option(value="TENNESSEE RIVER", selected= tmdl.Basin == "TENNESSEE RIVER") TENNESSEE RIVER
+                        option(value="TOMBIGBEE RIVER", selected= tmdl.Basin == "TOMBIGBEE RIVER") TOMBIGBEE RIVER
+                        option(value="UPPER MISSISSIPPI RIVER", selected= tmdl.Basin == "UPPER MISSISSIPPI RIVER") UPPER MISSISSIPPI RIVER
+                        option(value="YAZOO RIVER", selected= tmdl.Basin == "YAZOO RIVER") YAZOO RIVER
+                .form_input
+                    label(for="Water_Body_Name") Water Body Name:
+                    input(type="text" name="Water_Body_Name" required  value=tmdl.Water_Body_Name)
+                .form_input
+                    label(for="Water_Body_ID") Water Body ID:
+                    input(type="number" name="Water_Body_ID" required value=tmdl.Water_Body_ID)
+                .form_input
+                    label(for="County") County:
+                    input(type="text" name="County" required  value=tmdl.County)
+                .form_input
+                    label(for="USGS_HUC") USGS HUC:
+                    input(type="number" min="0000000" max="9999999" name="USGS_HUC" required value=tmdl.USGS_HUC)
+                .form_input
+                    label(for="Impaired_Use") Impaired Use:
+                    select(name="Impaired_Use")
+                        option(value="Fish & Wildlife", selected= tmdl.Impaired_Use == "Fish & Wildlife") Fish and Wildlife
+                        option(value="Fish Consumption", selected= tmdl.Impaired_Use == "Fish Consumption") Fish Consumption                  
+                        option(value="Recreation", selected= tmdl.Impaired_Use == "Recreation") Recreation
+                        option(value="Shellfishing", selected= tmdl.Impaired_Use == "Shellfishing") Shellfishing
+                .form_input
+                    label(for="Pollutant") Pollutant:
+                    select(name="Pollutant")
+                        for pollutant in pollutants
+                            option(value=pollutant, selected= tmdl.Pollutant == pollutant) #{pollutant}
+                .form_input
+                    label(for="TMDL_Due_Date") TMDL Due Date (MM/DD/YY):
+                    input(type="date" name="TMDL_Due_Date" required value=tmdl.TMDL_Due_Date)     
+                .form_input
+                    label(for="Location") Location:
+                    input(type="text" name="Location" required value=tmdl.Location)   
+                .form_input
+                    label(for="EPA_Approval_Date") EPA Approval Date (MM/DD/YY):
+                    input(type="date" name="EPA_Approval_Date" value=tmdl.EPA_Approval_Date)   
+                .form_input
+                    label(for="ORC") ORC (Off Ramp Code):
+                    input(type="number" min="100" max="406" name="ORC" value=tmdl.ORC )                                                
+                .form_input
+                    label(for="Category") Category:
+                    select(name="Category")
+                        option(value="2" , selected= tmdl.Category == "2") 2-Some uses attained others unknown
+                        option(value="3", selected= tmdl.Category == "3") 3-Not enough data
+                        option(value="4A", selected= tmdl.Category == "4A") 4A-Impaired but TMDL completed
+                        option(value="4B", selected= tmdl.Category == "4B") 4B-Impaired,other strategy, no TMDL
+                        option(value="5", selected= tmdl.Category == "5") 5-Not Attaining, needs TMDL     
+                        option(value="X", selected= tmdl.Category == "X") X-Removed from list due to cause
+                .form_input
+                    label(for="Report_ID") Attains Report ID:
+                    input(type="number" name="Report_ID" value=tmdl.Report_ID) 
+                //- Need to fix stressor id and stressor date    
+                .form_input
+                    label(for="Stressor_ID") Stressor ID
+                    input(type="text" name="Stressor_ID" value=tmdl.Stressor_ID)     
+                .form_input
+                    label(for="Engineer") Engineer
+                    input(type="text" name="Engineer"  value=tmdl.Engineer)   
+                .form_input
+                    label(for="Priority") Priority
+                    select(name="Priority") 
+                        option(value="Not Applicable", selected= tmdl.Priority == "Not Applicable") Not Applicable
+                        option(value="High", selected= tmdl.Priority == "High") High
+                        option(value="Important", selected= tmdl.Priority == "Important") Important
+                        option(value="Critical", selected= tmdl.Priority == "Critical") Critical    
+                .form_input
+                    label(for="TMDL_Path") TMDL Path on network
+                    input(type="text" name="TMDL_Path"  value=tmdl.TMDL_Path)        
+                .form_input
+                    label(for="TMDL_Status") TMDL Status
+                    select(name="TMDL_Status") 
+                        option(value="" , selected= tmdl.TMDL_Status == "") 
+                        option(value="Draft", selected= tmdl.TMDL_Status == "Draft") Draft
+                        option(value="Proposed", selected= tmdl.TMDL_Status == "Proposed") Proposed
+                        option(value="Approved", selected= tmdl.TMDL_Status == "Approved") Approved                                                            
+                .form_input
+                    label(for="PDF") PDF:
+                    input(type="file" name="PDF"  value=tmdl.PDF)
+                .form_input
+                    label(for="Comment") Comment
+                    input(type="text" name="Comment" value=tmdl.Comment)                  
+                .form_input 
+                    button(type="submit" class="button_small") SUBMIT

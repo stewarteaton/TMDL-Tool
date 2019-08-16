@@ -1,0 +1,34 @@
+{
+  "name": "tmdl-db",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "cloudinary": "^1.14.0",
+    "compression": "^1.7.4",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^2.0.3",
+    "cookie-parser": "~1.4.3",
+    "date-and-time": "^0.8.1",
+    "debug": "~2.6.9",
+    "dotenv": "^8.0.0",
+    "express": "~4.16.0",
+    "express-session": "^1.16.2",
+    "express-validator": "^6.1.0",
+    "http-errors": "~1.6.2",
+    "mongoose": "^5.5.14",
+    "mongoose-bcrypt": "^1.6.0",
+    "morgan": "~1.9.0",
+    "multer": "^1.4.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.1",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
