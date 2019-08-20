@@ -48,7 +48,7 @@ mixin tmdlForm(pollutant, tmdl)
                     label(for="Location") Location:
                     input(type="text" name="Location" required value=tmdl.Location)   
                 .form_input
-                    label(for="EPA_Approval_Date") EPA Approval Date (MM/DD/YY):
+                    label(for="EPA_Approval_Date") EPA Approval Date (MM/DD/YY)  :
                     input(type="date" name="EPA_Approval_Date" value=tmdl.EPA_Approval_Date)   
                 .form_input
                     label(for="ORC") ORC (Off Ramp Code):
@@ -56,12 +56,12 @@ mixin tmdlForm(pollutant, tmdl)
                 .form_input
                     label(for="Category") Category:
                     select(name="Category")
-                        option(value="2" , selected= tmdl.Category == "2") 2-Some uses attained others unknown
-                        option(value="3", selected= tmdl.Category == "3") 3-Not enough data
-                        option(value="4A", selected= tmdl.Category == "4A") 4A-Impaired but TMDL completed
-                        option(value="4B", selected= tmdl.Category == "4B") 4B-Impaired,other strategy, no TMDL
-                        option(value="5", selected= tmdl.Category == "5") 5-Not Attaining, needs TMDL     
-                        option(value="X", selected= tmdl.Category == "X") X-Removed from list due to cause
+                        option(value="2 - SOME USES ATTAINED OTHERS UNKNOWN" , selected= tmdl.Category == "2 - SOME USES ATTAINED OTHERS UNKNOWN") 2-Some uses attained others unknown
+                        option(value="3 - NOT ENOUGH DATA", selected= tmdl.Category == "3 - NOT ENOUGH DATA") 3-Not enough data
+                        option(value="4A - IMPAIRED BUT TMDL COMPLETE", selected= tmdl.Category == "4A - IMPAIRED BUT TMDL COMPLETE") 4A-Impaired but TMDL completed
+                        option(value="4B - IMPAIRED, OTHER STRATEGY, NO TMDL", selected= tmdl.Category == "4B - IMPAIRED, OTHER STRATEGY, NO TMDL") 4B-Impaired,other strategy, no TMDL
+                        option(value="5 - NOT ATTAINING NEEDS TMDL", selected= tmdl.Category == "5 - NOT ATTAINING NEEDS TMDL") 5-Not Attaining, needs TMDL     
+                        option(value="X - REMOVED FROM LIST DUE TO CAUSE", selected= tmdl.Category == "X - REMOVED FROM LIST DUE TO CAUSE") X-Removed from list due to cause
                 .form_input
                     label(for="Report_ID") Attains Report ID:
                     input(type="number" name="Report_ID" value=tmdl.Report_ID) 

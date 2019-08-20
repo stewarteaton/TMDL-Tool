@@ -3,8 +3,12 @@ include mixins/_search_form
 
 block content
   .showForm
-    +searchForm(pollutants)
-  
+    +searchForm(pollutants, sQ)
+
+  if(searchData == '')
+    .searchError 
+      h1 No matching results, please try again
+      
   .results_wrapper
 
     .column_info
@@ -34,7 +38,7 @@ block content
       .tmdl_info
         h5 Report ID    
       .tmdl_info
-        h5 PDF                                                 
+        h5 PDF                                           
     each tmdl in searchData
       if url.startsWith('/admin/edit-remove')
         a(href=`/admin/edit-remove/${tmdl._id}`)

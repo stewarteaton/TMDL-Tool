@@ -159,6 +159,10 @@ input, select, button {
   display: none;
 }
 
+.searchError {
+  color: red;
+}
+
 .results_wrapper {
   width: 98%;
   margin-left: 1%;

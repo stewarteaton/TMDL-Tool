@@ -1,4 +1,4 @@
-mixin searchForm(pollutants)
+mixin searchForm(pollutants, sQ)
 
     .searchForm_wrapper
         div(id='search_nav')
@@ -9,32 +9,32 @@ mixin searchForm(pollutants)
                             label(for="Basin") Basin:
                             select(name="Basin")
                                 option(value="")
-                                option(value="BIG BLACK RIVER") Big Black River
-                                option(value="COASTAL STREAMS") Coastal Streams
-                                option(value="LOWER MISSISSIPPI RIVER") Lower Mississippi River
-                                option(value="NORTH INDEPENDENT STREAMS") North Independent Streams
-                                option(value="PASCAGOULA RIVER") Pascagoula River
-                                option(value="PEARL RIVER") Pearl River
-                                option(value="SOUTH INDEPENDENT STREAMS") South Independent Streams
-                                optoin(value="TENNESSEE RIVER") Tennessee River
-                                option(value="TOMBIGBEE RIVER") Tombigbee River
-                                option(value="UPPER MISSISSIPPI RIVER") Upper Mississippi River
-                                option(value="YAZOO RIVER") Yazoo River
+                                option(value="BIG BLACK RIVER",  selected= sQ.Basin == "BIG BLACK RIVER") Big Black River
+                                option(value="COASTAL STREAMS",  selected= sQ.Basin == "COASTAL STREAMS") Coastal Streams
+                                option(value="LOWER MISSISSIPPI RIVER", selected= sQ.Basin == "Lower Mississippi River") Lower Mississippi River
+                                option(value="NORTH INDEPENDENT STREAMS",  selected= sQ.Basin == "North Independent Streams") North Independent Streams
+                                option(value="PASCAGOULA RIVER",  selected= sQ.Basin == "Pascagoula River") Pascagoula River
+                                option(value="PEARL RIVER",  selected= sQ.Basin == "Pearl River") Pearl River
+                                option(value="SOUTH INDEPENDENT STREAMS",  selected= sQ.Basin == "South Independent Streams") South Independent Streams
+                                optoin(value="TENNESSEE RIVER",  selected= sQ.Basin == "Tennessee River") Tennessee River
+                                option(value="TOMBIGBEE RIVER",  selected= sQ.Basin == "Tombigbee River") Tombigbee River
+                                option(value="UPPER MISSISSIPPI RIVER",  selected= sQ.Basin == "Upper Mississippi River") Upper Mississippi River
+                                option(value="YAZOO RIVER",  selected= sQ.Basin == "Yazoo River") Yazoo River
                         .form_input
                             label(for="Water_Body_Name") Water Body Name:
-                            input(type="text" name="Water_Body_Name" )
+                            input(type="text" name="Water_Body_Name" value=sQ.Water_Body_Name)
                         .form_input
                             label(for="Water_Body_ID") Water Body ID:
-                            input(type="text"  name="Water_Body_ID" )
+                            input(type="text"  name="Water_Body_ID" value=sQ.Water_Body_ID)
                     .form_group
                         .form_input
                             label(for="Pollutant") Pollutant:
                             select(name="Pollutant")
                                 for pollutant in pollutants
-                                    option(value=pollutant) #{pollutant}
+                                    option(value=pollutant selected= sQ.Pollutant == pollutant) #{pollutant}
                         .form_input
                             label(for="County") County:
-                            input(type="text" name="County")
+                            input(type="text" name="County" value=sQ.County)
                         .form_input
                             label(for="USGS_HUC") USGS HUC:
                             input(type="number" max="9999999" name="USGS_HUC" )
@@ -43,12 +43,12 @@ mixin searchForm(pollutants)
                             label(for="Category") Category:
                             select(name="Category")
                                 option(value="") 
-                                option(value="2 - SOME USES ATTAINED OTHERS UNKNOWN") 2-Some uses attained others unknown
-                                option(value="3 - NOT ENOUGH DATA") 3-Not enough data
-                                option(value="4A - IMPAIRED BUT TMDL COMPLETE") 4A-Impaired but TMDL completed
-                                option(value="4B - IMPAIRED, OTHER STRATEGY, NO TMDL") 4B-Impaired,other strategy, no TMDL
-                                option(value="5 - NOT ATTAINING NEEDS TMDL") 5-Not Attaining, needs TMDL     
-                                option(value="X - REMOVED FROM LIST DUE TO CAUSE") X-Removed from list due to cause
+                                option(value="2 - SOME USES ATTAINED OTHERS UNKNOWN",  selected= sQ.Category == "2 - SOME USES ATTAINED OTHERS UNKNOWN") 2-Some uses attained others unknown
+                                option(value="3 - NOT ENOUGH DATA",  selected= sQ.Category == "3 - NOT ENOUGH DATA") 3-Not enough data
+                                option(value="4A - IMPAIRED BUT TMDL COMPLETE",  selected= sQ.Category == "4A - IMPAIRED BUT TMDL COMPLETE") 4A-Impaired but TMDL completed
+                                option(value="4B - IMPAIRED, OTHER STRATEGY, NO TMDL",  selected= sQ.Category == "4B - IMPAIRED, OTHER STRATEGY, NO TMDL") 4B-Impaired,other strategy, no TMDL
+                                option(value="5 - NOT ATTAINING NEEDS TMDL",  selected= sQ.Category == "5 - NOT ATTAINING NEEDS TMDL") 5-Not Attaining, needs TMDL     
+                                option(value="X - REMOVED FROM LIST DUE TO CAUSE",  selected= sQ.Category == "X - REMOVED FROM LIST DUE TO CAUSE") X-Removed from list due to cause
                         .form_input 
                             label(for="Report_ID_NTTS") Report ID:
                             input(type="text" name="Report_ID_NTTS")

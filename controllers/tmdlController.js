@@ -57,23 +57,11 @@ exports.pushToCloudinary = async (request,response, next) => {
 //home page
 exports.homePage = async (request, response, next) => {
     try{
-        // const tmdls = TMDLs.aggregate([
-        //     //show 9=10 random countries
-        //     { $match: { Basin: "sdfa" }},
-        //     { $sample: { size: 5}}
 
-        // ]);
-        // const tmdls2 = TMDLs.aggregate([
-        //     { $match: { Pollutant: "Pathogens"} },
-        //     { $sample: { size:5}}
-        // ]);
-        // const allTMDLs = TMDLs.find({});
-        // const filteredTMDLS =  await allTMDLs;
-        // const [filteredTMDLS2, filteredTMDLS] = await Promise.all([tmdls2, tmdls]);
-
-        // response.json(filteredTMDLS);
         pollutants = pollutantOptions;
-        response.render('index', {title: "Search MDEQ's TMDL Database", pollutants});
+        // set initial search query to empty
+        const sQ = '';
+        response.render('index', {title: "Search MDEQ's TMDL Database", pollutants, sQ});
     } catch(error) {
         next(error)
     }
@@ -84,9 +72,8 @@ exports.searchResults = async (request, response, next) => {
     try{
         //apply model so that field are forced into all caps (sQ = search Query)
         const sQ = new TMDLs(request.body);
- 
+    
         console.log(sQ);
-        var searchData='';
 
         // Create regular expressions for partial text search 
         const wbNameRegex = new RegExp(sQ.Water_Body_Name);
@@ -95,6 +82,7 @@ exports.searchResults = async (request, response, next) => {
         const usgsRegex = new RegExp( sQ.USGS_HUC );
         const reportIdRegex = new RegExp( sQ.Report_ID_NTTS);
 
+        console.log(sQ.Report_ID_NTTS)
         // filter out seach parameters that are empty
         const searchCriteria = [
             sQ.Basin != '' && { Basin: sQ.Basin },
@@ -107,6 +95,7 @@ exports.searchResults = async (request, response, next) => {
             sQ.Category != '' && {Category: sQ.Category},
             sQ.Report_ID_NTTS != null && { Report_ID_NTTS: sQ.Report_ID_NTTS}
             // sQ.Report_ID_NTTS != null && { Report_ID_NTTS: { $regex: reportIdRegex }}
+
         ].filter(Boolean)
 
         console.log(searchCriteria);
@@ -117,9 +106,11 @@ exports.searchResults = async (request, response, next) => {
             response.redirect('/');
         }
 
+        var searchData='';
         searchData = await TMDLs.aggregate([
+            // { $match: { $text: {$search: `\"${sQ.Water_Body_Name}\"`}}},
             { $match: { $and: searchCriteria } },
-            {$sort: {Water_Body_Name: 1 }}
+            { $sort: {Water_Body_Name: 1 }}
         ]);
 
         // passes lists of pollutants for search form on results page
@@ -127,10 +118,11 @@ exports.searchResults = async (request, response, next) => {
 
         console.log(searchData);
         const url = request.originalUrl;
+
         if (url.startsWith('/admin/edit-remove')){
-            response.render("results", {title: "Select TMDL to edit or remove", searchData, pollutants });
+            response.render("results", {title: "Select TMDL to edit or remove", searchData, pollutants, sQ });
         } else {
-            response.render('results', {title:"Search Results", searchData, pollutants })
+            response.render('results', {title:"Search Results", searchData, pollutants, sQ })
         }
 
     } catch(error) {
@@ -166,7 +158,9 @@ exports.createTMDLpost = async (req, res, next) => {
 
 exports.editRemoveGet = (request, response) => {
     pollutants = pollutantOptions;
-    response.render('index', {title: "Search for TMDL and click on one to edit or remove", pollutants});
+    // initialze search form to empty
+    const sQ = '';
+    response.render('index', {title: "Search for TMDL and click on one to edit or remove", pollutants, sQ});
 }
 
 
@@ -175,8 +169,21 @@ exports.editRemoveFormGet = async (req, res, next) => {
     pollutant = pollutantOptions;
     // searches for tmdl in database from id passed as parameter in hyper link
     const tmdl = await TMDLs.findOne({ _id: req.params.id });
-    const TMDL_Due_Date = date.format(tmdl.TMDL_Due_Date, "MMM DD YYYY");
-    const EPA_Approval_Date = date.format(tmdl.EPA_Approval_Date, "MMM DD YYYY");
+
+    // check if due date exists and preloads it to form
+    var TMDL_Due_Date;
+    if(tmdl.TMDL_Due_Date ){
+        TMDL_Due_Date = date.format(tmdl.TMDL_Due_Date, "MMM DD YYYY");
+    }
+    // check to see if approval date exists and pre-loads it to form
+    var EPA_Approval_Date;
+    if(tmdl.EPA_Approval_Date){
+        EPA_Approval_Date = date.format(tmdl.EPA_Approval_Date, "MMM DD YYYY");
+    }
+    // const EPA_Approval_Date = date.format(tmdl.EPA_Approval_Date, "MMM DD YYYY");
+    console.log('*** TMDL CAT');
+    console.log(tmdl.Category);
+    console.log(tmdl.Water_Body_Name)
     res.render("addTMDL", {title: "Edit or Remove this TMDL", tmdl, pollutant,TMDL_Due_Date, EPA_Approval_Date });
   } catch (error) {
     next(error);

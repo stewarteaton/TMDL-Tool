@@ -77,7 +77,7 @@ const tmdlSchema = new mongoose.Schema({
     },
     Report_ID_NTTS: {
         type: Number,
-        trim: true
+        trim: true,
     },
     Stressor_ID: {
         type: String,
