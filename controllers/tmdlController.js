@@ -95,7 +95,6 @@ exports.searchResults = async (request, response, next) => {
             sQ.Category != '' && {Category: sQ.Category},
             sQ.Report_ID_NTTS != null && { Report_ID_NTTS: sQ.Report_ID_NTTS}
             // sQ.Report_ID_NTTS != null && { Report_ID_NTTS: { $regex: reportIdRegex }}
-
         ].filter(Boolean)
 
         console.log(searchCriteria);
@@ -149,8 +148,8 @@ exports.createTMDLpost = async (req, res, next) => {
         const tmdl = new TMDLs(req.body);
 
         await tmdl.save();
-        req.flash('success', 'TMDL successfully added');
-        res.redirect('/');
+        req.flash('success', `${tmdl.Water_Body_Name} TMDL successfully added`);
+        res.redirect('/admin/admin-page');
     } catch (error) {
         next (error);
     }
@@ -170,21 +169,22 @@ exports.editRemoveFormGet = async (req, res, next) => {
     // searches for tmdl in database from id passed as parameter in hyper link
     const tmdl = await TMDLs.findOne({ _id: req.params.id });
 
-    // check if due date exists and preloads it to form
-    var TMDL_Due_Date;
-    if(tmdl.TMDL_Due_Date ){
-        TMDL_Due_Date = date.format(tmdl.TMDL_Due_Date, "MMM DD YYYY");
-    }
-    // check to see if approval date exists and pre-loads it to form
-    var EPA_Approval_Date;
-    if(tmdl.EPA_Approval_Date){
-        EPA_Approval_Date = date.format(tmdl.EPA_Approval_Date, "MMM DD YYYY");
-    }
-    // const EPA_Approval_Date = date.format(tmdl.EPA_Approval_Date, "MMM DD YYYY");
-    console.log('*** TMDL CAT');
-    console.log(tmdl.Category);
-    console.log(tmdl.Water_Body_Name)
-    res.render("addTMDL", {title: "Edit or Remove this TMDL", tmdl, pollutant,TMDL_Due_Date, EPA_Approval_Date });
+    // // check if due date exists and preloads it to form
+    // var TMDL_Due_Date;
+    // if(tmdl.TMDL_Due_Date ){
+    //     TMDL_Due_Date = date.format(tmdl.TMDL_Due_Date, "MMM DD YYYY");
+    // }
+    // // check to see if approval date exists and pre-loads it to form
+    // var EPA_Approval_Date;
+    // if(tmdl.EPA_Approval_Date){
+    //     EPA_Approval_Date = date.format(tmdl.EPA_Approval_Date, "MMM DD YYYY");
+    // }
+
+    // tmdl.EPA_Approval_Date = tmdl.EPA_Approval_Date.split('T')[0];
+    // console.log('Approval Date');
+
+    console.log(tmdl.EPA_Approval_Date);
+    res.render("addTMDL", {title: "Edit or Remove this TMDL", tmdl, pollutant });
   } catch (error) {
     next(error);
   }
@@ -195,8 +195,8 @@ exports.updateTMDLpost = async (request, response, next) => {
         const tmdl_ID = request.params.id;
         // new: true  ensures that we get back the modified version
         const tmdl = await TMDLs.findByIdAndUpdate(tmdl_ID, request.body, {new: true});
-        request.flash('success', `${tmdl.Basin} Basin TMDL updated successfully`);
-        response.redirect('/');
+        request.flash('success', `${tmdl.Water_Body_Name} TMDL updated successfully`);
+        response.redirect('/admin/admin-page');
     } catch (error) {
         next(error);
     }
@@ -206,8 +206,8 @@ exports.deleteTMDL = async (request, response, next) => {
     try {
         const tmdl_ID = request.params.id;
         const tmdl = await TMDLs.findByIdAndRemove({ _id: tmdl_ID });
-        request.flash('info', `TMDL id: ${tmdl._id} has been deleted`);
-        response.redirect('/');
+        request.flash('info', `${tmdl.Water_Body_Name} TMDL has been deleted`);
+        response.redirect('/admin/admin-page');
     } catch (error) {
         next(error);
     }

@@ -29,7 +29,7 @@ block content
                     input(type="text" name="County" required  value=tmdl.County)
                 .form_input
                     label(for="USGS_HUC") USGS HUC:
-                    input(type="number" min="0000000" max="9999999" name="USGS_HUC" required value=tmdl.USGS_HUC)
+                    input(type="number" min="9999999" max="999999999999" name="USGS_HUC" required value=tmdl.USGS_HUC)
                 .form_input
                     label(for="Impaired_Use") Impaired Use:
                     select(name="Impaired_Use")
@@ -43,14 +43,17 @@ block content
                         for pollutant in pollutants
                             option(value=pollutant, selected= tmdl.Pollutant == pollutant) #{pollutant}
                 .form_input
-                    label(for="TMDL_Due_Date") TMDL_Due_Date:
-                    input(type="text" name="TMDL_Due_Date" value=TMDL_Due_Date)     
+                    label(for="TMDL_Due_Date") TMDL Due Date: (MM/DD/YY)
+                    input(type="text" name="TMDL_Due_Date" value=tmdl.TMDL_Due_Date)     
                 .form_input
                     label(for="Location") Location:
                     input(type="text" name="Location" required value=tmdl.Location)   
+                .form_input 
+                    label(for="Original_Cycle") Original Listing Cycle: (YYYY)
+                    input(type="text" name="Original_Cycle")
                 .form_input
-                    label(for="EPA_Approval_Date") EPA Approval Date:
-                    input(type="text" name="EPA_Approval_Date" value=EPA_Approval_Date)   
+                    label(for="EPA_Approval_Date") EPA Approval Date: (MM/DD/YY)
+                    input(type="text" name="EPA_Approval_Date" value=tmdl.EPA_Approval_Date)   
                 .form_input
                     label(for="ORC") ORC (Off Ramp Code):
                     input(type="number" min="100" max="408" name="ORC" required value=tmdl.ORC )                                                
@@ -64,8 +67,8 @@ block content
                         option(value="5-Not Attaining, needs TMDL", selected= tmdl.Category == "5") 5-Not Attaining, needs TMDL     
                         option(value="X-Removed from list due to cause", selected= tmdl.Category == "X") X-Removed from list due to cause
                 .form_input
-                    label(for="Report_ID") Attains Report ID:
-                    input(type="number" name="Report_ID" value=tmdl.Report_ID) 
+                    label(for="Report_ID_NTTS") Attains Report ID:
+                    input(type="text" name="Report_ID_NTTS" value=tmdl.Report_ID_NTTS) 
                 //- Need to fix stressor id and stressor date    
                 .form_input
                     label(for="Stressor_ID") Stressor ID

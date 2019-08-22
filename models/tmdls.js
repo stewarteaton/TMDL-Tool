@@ -35,8 +35,10 @@ const tmdlSchema = new mongoose.Schema({
     USGS_HUC: {
         type: Number,
         required: "USGS HUC is required",
-        max: 9999999,
-        trim: true
+        max: 999999999999,
+        min: 9999999,
+        trim: true,
+
     },
     Impaired_Use: {
         type: String,
@@ -51,7 +53,7 @@ const tmdlSchema = new mongoose.Schema({
         trim: true
     },
     TMDL_Due_Date: {
-        type: Date,
+        type: String,
         // required: "TMDL due date is required",
         trim: true
     },
@@ -62,7 +64,7 @@ const tmdlSchema = new mongoose.Schema({
         trim:true
     },
     EPA_Approval_Date: {
-        type: Date,
+        type: String,
         trim: true
     },
     ORC: {
@@ -76,7 +78,7 @@ const tmdlSchema = new mongoose.Schema({
         trim: true
     },
     Report_ID_NTTS: {
-        type: Number,
+        type: String,
         trim: true,
     },
     Stressor_ID: {
