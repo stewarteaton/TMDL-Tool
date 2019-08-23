@@ -37,7 +37,7 @@ mixin searchForm(pollutants, sQ)
                             input(type="text" name="County" value=sQ.County)
                         .form_input
                             label(for="USGS_HUC") USGS HUC:
-                            input(type="number" max="9999999" name="USGS_HUC" )
+                            input(type="number" max="9999999" name="USGS_HUC" value=sQ.USGS_HUC)
                     .form_group
                         .form_input
                             label(for="Category") Category:
@@ -51,7 +51,7 @@ mixin searchForm(pollutants, sQ)
                                 option(value="X - REMOVED FROM LIST DUE TO CAUSE",  selected= sQ.Category == "X - REMOVED FROM LIST DUE TO CAUSE") X-Removed from list due to cause
                         .form_input 
                             label(for="Report_ID_NTTS") Report ID:
-                            input(type="text" name="Report_ID_NTTS")
+                            input(type="text" name="Report_ID_NTTS" value=sQ.Report_ID_NTTS)
                         .form_input
                             .button_input
                                 button.findTMDL(type="submit") Find TMDL!

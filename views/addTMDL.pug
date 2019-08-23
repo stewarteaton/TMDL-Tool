@@ -29,7 +29,7 @@ block content
                     input(type="text" name="County" required  value=tmdl.County)
                 .form_input
                     label(for="USGS_HUC") USGS HUC:
-                    input(type="number" min="9999999" max="999999999999" name="USGS_HUC" required value=tmdl.USGS_HUC)
+                    input(type="number" min="99999" max="999999999999" name="USGS_HUC" required value=tmdl.USGS_HUC)
                 .form_input
                     label(for="Impaired_Use") Impaired Use:
                     select(name="Impaired_Use")
@@ -43,14 +43,14 @@ block content
                         for pollutant in pollutants
                             option(value=pollutant, selected= tmdl.Pollutant == pollutant) #{pollutant}
                 .form_input
-                    label(for="TMDL_Due_Date") TMDL Due Date: (MM/DD/YY)
+                    label(for="TMDL_Due_Date") TMDL_Due_Date: (MM/DD/YY)
                     input(type="text" name="TMDL_Due_Date" value=tmdl.TMDL_Due_Date)     
                 .form_input
                     label(for="Location") Location:
                     input(type="text" name="Location" required value=tmdl.Location)   
-                .form_input 
-                    label(for="Original_Cycle") Original Listing Cycle: (YYYY)
-                    input(type="text" name="Original_Cycle")
+                .form_input
+                    label(for="Original_Cycle") Original Cycle: (YYYY)
+                    input(type="number" name='Original_Cycle' value=tmdl.Original_Cycle)
                 .form_input
                     label(for="EPA_Approval_Date") EPA Approval Date: (MM/DD/YY)
                     input(type="text" name="EPA_Approval_Date" value=tmdl.EPA_Approval_Date)   
@@ -60,19 +60,21 @@ block content
                 .form_input
                     label(for="Category") Category:
                     select(name="Category")
-                        option(value="2-Some uses attained others unknown" , selected= tmdl.Category == "2") 2-Some uses attained others unknown
-                        option(value="3-Not enough data", selected= tmdl.Category == "3") 3-Not enough data
-                        option(value="4A-Impaired but TMDL completed", selected= tmdl.Category == "4A") 4A-Impaired but TMDL completed
-                        option(value="4B-Impaired,other strategy, no TMDL", selected= tmdl.Category == "4B") 4B-Impaired,other strategy, no TMDL
-                        option(value="5-Not Attaining, needs TMDL", selected= tmdl.Category == "5") 5-Not Attaining, needs TMDL     
-                        option(value="X-Removed from list due to cause", selected= tmdl.Category == "X") X-Removed from list due to cause
+                        option(value="2 - Some uses attained others unknown" , selected= tmdl.Category == "2") 2-Some uses attained others unknown
+                        option(value="3 - Not enough data", selected= tmdl.Category == "3") 3-Not enough data
+                        option(value="4A - Impaired but TMDL completed", selected= tmdl.Category == "4A") 4A-Impaired but TMDL completed
+                        option(value="4B - Impaired,other strategy, no TMDL", selected= tmdl.Category == "4B") 4B-Impaired,other strategy, no TMDL
+                        option(value="5 - Not Attaining, needs TMDL", selected= tmdl.Category == "5") 5-Not Attaining, needs TMDL     
+                        option(value="X - Removed from list due to cause", selected= tmdl.Category == "X") X-Removed from list due to cause
                 .form_input
                     label(for="Report_ID_NTTS") Attains Report ID:
                     input(type="text" name="Report_ID_NTTS" value=tmdl.Report_ID_NTTS) 
-                //- Need to fix stressor id and stressor date    
                 .form_input
-                    label(for="Stressor_ID") Stressor ID
+                    label(for="Stressor_ID") Stressor ID:
                     input(type="text" name="Stressor_ID" value=tmdl.Stressor_ID)     
+                .form_input
+                    label(for="Stressor_ID_Date") Stressor ID Date: (MM/DD/YY)
+                    input(type="text" name="Stressor_ID_Date" value=tmdl.Stressor_ID_Date)
                 .form_input
                     label(for="Engineer") Engineer
                     input(type="text" name="Engineer"  value=tmdl.Engineer)   
@@ -84,15 +86,15 @@ block content
                         option(value="Important", selected= tmdl.Priority == "Important") Important
                         option(value="Critical", selected= tmdl.Priority == "Critical") Critical    
                 .form_input
-                    label(for="TMDL_Path") TMDL Path on network
-                    input(type="text" name="TMDL_Path"  value=tmdl.TMDL_Path)        
+                    label(for="TMDL_Path_Filename") TMDL Path on network
+                    input(type="text" name="TMDL_Path_Filename"  value=tmdl.TMDL_Path_Filename)        
                 .form_input
                     label(for="TMDL_Status") TMDL Status
                     select(name="TMDL_Status") 
                         option(value="" , selected= tmdl.TMDL_Status == "") 
                         option(value="Draft", selected= tmdl.TMDL_Status == "Draft") Draft
                         option(value="Proposed", selected= tmdl.TMDL_Status == "Proposed") Proposed
-                        option(value="Approved", selected= tmdl.TMDL_Status == "Approved") Approved                                                            
+                        option(value="Final", selected= tmdl.TMDL_Status == "Final") Final                                                            
                 .form_input
                     label(for="PDF") PDF:
                     input(type="file" name="PDF"  value=tmdl.PDF)

@@ -93,8 +93,8 @@ exports.searchResults = async (request, response, next) => {
             // sQ.USGS_HUC != null && { USGS_HUC: { $regex: usgsRegex }},
             sQ.Pollutant != '' && {Pollutant: sQ.Pollutant },
             sQ.Category != '' && {Category: sQ.Category},
-            sQ.Report_ID_NTTS != null && { Report_ID_NTTS: sQ.Report_ID_NTTS}
-            // sQ.Report_ID_NTTS != null && { Report_ID_NTTS: { $regex: reportIdRegex }}
+            sQ.Report_ID_NTTS != null && { Report_ID_NTTS: { $regex: reportIdRegex }}
+
         ].filter(Boolean)
 
         console.log(searchCriteria);
@@ -168,20 +168,6 @@ exports.editRemoveFormGet = async (req, res, next) => {
     pollutant = pollutantOptions;
     // searches for tmdl in database from id passed as parameter in hyper link
     const tmdl = await TMDLs.findOne({ _id: req.params.id });
-
-    // // check if due date exists and preloads it to form
-    // var TMDL_Due_Date;
-    // if(tmdl.TMDL_Due_Date ){
-    //     TMDL_Due_Date = date.format(tmdl.TMDL_Due_Date, "MMM DD YYYY");
-    // }
-    // // check to see if approval date exists and pre-loads it to form
-    // var EPA_Approval_Date;
-    // if(tmdl.EPA_Approval_Date){
-    //     EPA_Approval_Date = date.format(tmdl.EPA_Approval_Date, "MMM DD YYYY");
-    // }
-
-    // tmdl.EPA_Approval_Date = tmdl.EPA_Approval_Date.split('T')[0];
-    // console.log('Approval Date');
 
     console.log(tmdl.EPA_Approval_Date);
     res.render("addTMDL", {title: "Edit or Remove this TMDL", tmdl, pollutant });

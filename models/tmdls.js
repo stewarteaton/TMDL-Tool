@@ -36,7 +36,6 @@ const tmdlSchema = new mongoose.Schema({
         type: Number,
         required: "USGS HUC is required",
         max: 999999999999,
-        min: 9999999,
         trim: true,
 
     },
@@ -54,7 +53,6 @@ const tmdlSchema = new mongoose.Schema({
     },
     TMDL_Due_Date: {
         type: String,
-        // required: "TMDL due date is required",
         trim: true
     },
     Location: {
@@ -62,6 +60,12 @@ const tmdlSchema = new mongoose.Schema({
         required: "Location is reqiured",
         max: 128,
         trim:true
+    },
+    Original_Cycle: {
+        type: Number,
+        max: 2040,
+        min: 1998,
+        trim: true
     },
     EPA_Approval_Date: {
         type: String,
@@ -75,7 +79,7 @@ const tmdlSchema = new mongoose.Schema({
     Category: {
         type: String,
         required: "Category is required",
-        trim: true
+        // trim: true
     },
     Report_ID_NTTS: {
         type: String,
@@ -85,7 +89,10 @@ const tmdlSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    // need to add stressor id date i think
+    Stressor_ID_Date: {
+        type: String,
+        trim: true,
+    },
     Engineer: {
         type:String,
         trim: true,
@@ -96,7 +103,7 @@ const tmdlSchema = new mongoose.Schema({
         required: "Priority is required",
         trim: true
     },
-    TMDL_Path: {
+    TMDL_Path_Filename: {
         type: String,
         trim: true
     },
